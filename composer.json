@@ -1,9 +1,9 @@
 {
   "name": "thornwalli/handlebars.php-agency-boilerplate",
-  "version": "1.0.0",
-  "description": "A set of helpers for Handlebars.php template engine.",
+  "description": "",
   "type": "library",
   "license": "MIT",
+  "minimum-stability": "dev",
   "authors": [
     {
       "name": "Thorn-Welf Walli",
