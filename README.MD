@@ -41,7 +41,7 @@ Sets prefix for template files.
 
 >mixin: https://hbs-php-agency-boilerplate.herokuapp.com/tests/mixin
 
->stringfy: https://hbs-php-agency-boilerplate.herokuapp.com/tests/stringfy
+>stringfy: https://hbs-php-agency-boilerplate.herokuapp.com/tests/stringify
 
 >with: https://hbs-php-agency-boilerplate.herokuapp.com/tests/with
 
