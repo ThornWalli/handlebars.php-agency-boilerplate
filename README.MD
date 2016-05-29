@@ -37,9 +37,9 @@ Sets prefix for template files.
 
 ### Helpers
 
->lookup: https://hbs-php-agency-boilerplate.herokuapp.com/tests/lookup>
+>lookup: https://hbs-php-agency-boilerplate.herokuapp.com/tests/lookup
 
->mixin: https://hbs-php-agency-boilerplate.herokuapp.com/tests/mixin>
+>mixin: https://hbs-php-agency-boilerplate.herokuapp.com/tests/mixin
 
 >stringfy: https://hbs-php-agency-boilerplate.herokuapp.com/tests/stringfy
 
