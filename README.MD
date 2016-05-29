@@ -2,8 +2,7 @@
 
 Handlebar.php Helper for agency-boilerplate
 
-Config `tasks.json`
-
+`\AgencyBoilerplate\Handlebars\Core::init($options)`
 ```
 [
   'partialDir' => '.',
