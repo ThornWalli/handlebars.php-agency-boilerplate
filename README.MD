@@ -38,11 +38,13 @@ Sets prefix for template files.
 
 ### Helpers
 
->mixin: <https://hbs-php-agency-boilerplate.herokuapp.com/tests/mixin>
+>mixin: https://hbs-php-agency-boilerplate.herokuapp.com/tests/mixin>
 
->stringfy: https://hbs-php-agency-boilerplate.herokuapp.com/tests/stringfy>
+>stringfy: https://hbs-php-agency-boilerplate.herokuapp.com/tests/stringfy
 
->yaml (in progress) <https://hbs-php-agency-boilerplate.herokuapp.com/tests/yaml>
+>with: https://hbs-php-agency-boilerplate.herokuapp.com/tests/with
+
+>yaml (in progress) https://hbs-php-agency-boilerplate.herokuapp.com/tests/yaml
 
 ## Use
 

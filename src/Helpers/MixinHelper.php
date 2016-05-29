@@ -21,7 +21,9 @@ class MixinHelper extends \JustBlackBird\HandlebarsHelpers\Layout\AbstractBlockH
     $scope = [];
     if (count($args) > 0) {
       for ($i = 0; $i < count($parsedArgs); $i++) {
-        $scope = array_merge($scope, $context->get($parsedArgs[$i]));
+        if (is_array($context->get($parsedArgs[$i]))) {
+          $scope = array_merge($scope, $context->get($parsedArgs[$i]));
+        }
       }
     }
     foreach ($parsedNamedArgs as $key => $arg) {

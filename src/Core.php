@@ -27,17 +27,25 @@ class Core
   public static function init($options)
   {
     if (is_array($options)) {
+      if (!array_key_exists('partialDir', $options)) {
+        $options['partialDir'] = [];
+      }
+      if (!array_key_exists('extension', $options)) {
+        $options['extension'] = '.hbs';
+      }
+      if (!array_key_exists('prefix', $options)) {
+        $options['prefix'] = '';
+      }
+    } else {
       $options = array_merge([
-        'partialDir' => '.',
-        'extension' => '.hbs',
-        'prefix' => ''
+        'partialDir' => ['.']
       ], $options);
     }
-    $baseDir = $options['partialDir'];
+    $baseDirs = $options['partialDir'];
     self::$instance = new self(new \Handlebars\Handlebars(array(
       'helpers' => new Helpers(),
-      'loader' => new \AgencyBoilerplate\Handlebars\Loader\FilesystemLoader($baseDir, $options),
-      'partials_loader' => new \AgencyBoilerplate\Handlebars\Loader\FilesystemLoader($baseDir, $options)
+      'loader' => new \AgencyBoilerplate\Handlebars\Loader\FilesystemLoader($baseDirs, $options),
+      'partials_loader' => new \AgencyBoilerplate\Handlebars\Loader\FilesystemLoader($baseDirs, $options)
     )));
     return self::$instance;
   }

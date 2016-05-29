@@ -6,12 +6,12 @@ $core = \AgencyBoilerplate\Handlebars\Core::init([
 ]);
 
 $data = [
-    'the-arg' => 'Argument Test',
-    'the-object' => [
-        'key-1' => 'Object-Key-1 Test'
-    ]
+  'object-1' => [
+    'hello' => 'world'
+  ],
+  'object-2' => null
 ];
 
-echo $core->getEngine()->render('index',$data);
+echo $core->getEngine()->render('index', $data);
 
 ?>
