@@ -1,0 +1,16 @@
+---
+-
+  key-1: 'Object-Key-1 Test'
+-
+  key-2: 'Object-Key-2 Test'
+---
+<ul>
+  {{#each this}}
+    {{#if @key}}
+      <li>{{{@key}}}: {{{this}}}</li>
+    {{else}}
+      <li>{{{@index}}}: {{{this}}}</li>
+    {{/if}}
+  {{/each}}
+</ul>
+
