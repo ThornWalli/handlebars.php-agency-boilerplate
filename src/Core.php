@@ -37,9 +37,9 @@ class Core
         $options['prefix'] = '';
       }
     } else {
-      $options = array_merge([
-        'partialDir' => ['.']
-      ], $options);
+      throw new \InvalidArgumentException(
+        'empty options'
+      );
     }
     $baseDirs = $options['partialDir'];
     self::$instance = new self(new \Handlebars\Handlebars(array(
