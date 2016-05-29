@@ -14,10 +14,8 @@ class Helpers extends \Handlebars\Helpers
     $this->add('mixin', new \AgencyBoilerplate\Handlebars\Helpers\MixinHelper($storage));
     $this->add('with', new \AgencyBoilerplate\Handlebars\Helpers\WithHelper());
     $this->add('content', new \JustBlackBird\HandlebarsHelpers\Layout\OverrideHelper($storage));
-    $this->add('stringify', function ($template, $context, $args) {
-      $parsedArgs = $template->parseArguments($args);
-      return json_encode($context->get(current($parsedArgs)));
-    });
+    $this->add('lookup', new \AgencyBoilerplate\Handlebars\Helpers\LookupHelper());
+    $this->add('stringify', new \AgencyBoilerplate\Handlebars\Helpers\StringifyHelper());
   }
 
 }

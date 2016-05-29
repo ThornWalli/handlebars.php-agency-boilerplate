@@ -1,7 +1,7 @@
 <?php
 namespace AgencyBoilerplate\Handlebars\Helpers;
 
-class WithHelper implements \Handlebars\Helper
+class StringifyHelper implements \Handlebars\Helper
 {
   /**
    * Override "with" helper for remove buffer output, when arguments empty.
@@ -13,13 +13,8 @@ class WithHelper implements \Handlebars\Helper
    */
   public function execute(\Handlebars\Template $template, \Handlebars\Context $context, $args, $source)
   {
-    $buffer = null;
-    if ($context->get($args)) {
-      $context->with($args);
-      $buffer = $template->render($context);
-      $context->pop();
-    }
-    return $buffer;
+    $parsedArgs = $template->parseArguments($args);
+    return json_encode($context->get(current($parsedArgs)));
   }
 }
 

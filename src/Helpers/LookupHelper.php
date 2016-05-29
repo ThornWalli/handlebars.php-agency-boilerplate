@@ -1,7 +1,7 @@
 <?php
 namespace AgencyBoilerplate\Handlebars\Helpers;
 
-class WithHelper implements \Handlebars\Helper
+class LookupHelper implements \Handlebars\Helper
 {
   /**
    * Override "with" helper for remove buffer output, when arguments empty.
@@ -13,13 +13,12 @@ class WithHelper implements \Handlebars\Helper
    */
   public function execute(\Handlebars\Template $template, \Handlebars\Context $context, $args, $source)
   {
-    $buffer = null;
-    if ($context->get($args)) {
-      $context->with($args);
-      $buffer = $template->render($context);
-      $context->pop();
+    $parsedArgs = $template->parseArguments($args);
+    $data = $context->get($parsedArgs[0]);
+    if ($data) {
+      return array_key_exists($parsedArgs[1]->getString(), $data);
     }
-    return $buffer;
+    return false;
   }
 }
 
