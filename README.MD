@@ -1,6 +1,6 @@
 # handlebars.php-agency-boilerplate
 
-Handlebar.php Helper for agency-boilerplate
+Handlebar.php Helper for [agency-boilerplate](https://github.com/StephanGerbeth/agency-boilerplate).
 
 `\AgencyBoilerplate\Handlebars\Core::init($options)`
 ```
