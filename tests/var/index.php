@@ -23,33 +23,6 @@ $data = [
 
 echo $core->getEngine()->render('index', $data);
 
-function parseVarsfromTemplate($name)
-{
-  $core = \AgencyBoilerplate\Handlebars\Core::getInstance();
-  $html = $core->getEngine()->getPartialsLoader()->load($name);
-  preg_match_all("/{{[#]?var ([^{]*) ([^{}]*)}}|\\\\(var ([^()]*) ([^()]*)\\\\)/", $html, $matches);
-
-  $total = array();
-  $total[$name] = array_combine($matches[1], $matches[2]);
-
-  $paths = getPathsFromMixins(null, $html);
-  if (count($paths) > 0) {
-    for ($i = 0; $i < count($paths); $i++) {
-      $total = array_merge($total, parseVarsfromTemplate($paths[$i]));
-    }
-  }
-  return $total;
-}
-
-function getPathsFromMixins($name, $html = null)
-{
-  $core = \AgencyBoilerplate\Handlebars\Core::getInstance();
-  if ($html == null) {
-    $html = $core->getEngine()->getPartialsLoader()->load($name);
-  }
-  preg_match_all("/{{[{#]mixin \\\"(.*)\\\"[^{}]*}}/", $html, $matches);
-  return $matches[1];
-}
 
 ?>
 
@@ -57,7 +30,7 @@ function getPathsFromMixins($name, $html = null)
 
 <?php
 
-foreach (parseVarsfromTemplate('index') as $tabName => $tab) {
+foreach ($core->getVarData('index') as $tabName => $tab) {
   ?>
   <h3><?php echo $tabName; ?></h3>
   <pre><?php

@@ -57,7 +57,8 @@ https://hbs-php-agency-boilerplate.herokuapp.com/tests/stringify
 https://hbs-php-agency-boilerplate.herokuapp.com/tests/with
 
 #### var
-Return: ```*```
+
+https://hbs-php-agency-boilerplate.herokuapp.com/tests/var
 
 Return property value by name.
 

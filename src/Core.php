@@ -71,6 +71,32 @@ class Core
     return $this->engine;
   }
 
+  public function getVarData($partialName)
+  {
+    $core = \AgencyBoilerplate\Handlebars\Core::getInstance();
+    $html = $core->getEngine()->getPartialsLoader()->load($partialName);
+    preg_match_all("/{{[#]?var \"([^{]*)\" \"([^{}]*)\"}}|\\\\(var \"([^()]*)\" \"([^()]*)\\\\)\"/", $html, $matches);
+
+    $total = array();
+    $total[$partialName] = array_combine($matches[1], $matches[2]);
+
+    $paths = $this->getPathsFromMixins($partialName);
+    if (count($paths) > 0) {
+      for ($i = 0; $i < count($paths); $i++) {
+        $total = array_merge($total, $this->getVarData($paths[$i]));
+      }
+    }
+    return $total;
+  }
+
+  public function getPathsFromMixins($partialName)
+  {
+    $core = \AgencyBoilerplate\Handlebars\Core::getInstance();
+    $html = $core->getEngine()->getPartialsLoader()->load($partialName);
+    preg_match_all("/{{[{#]mixin \\\"(.*)\\\"[^{}]*}}/", $html, $matches);
+    return $matches[1];
+  }
+
 }
 
 ?>
