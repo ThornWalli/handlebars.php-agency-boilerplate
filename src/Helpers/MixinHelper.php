@@ -24,16 +24,15 @@ class MixinHelper extends \JustBlackBird\HandlebarsHelpers\Layout\AbstractBlockH
     foreach ($parsedNamedArgs as $key => $arg) {
       $scope[$key] = $context->get($arg);
     }
-
     if (count($scope) > 0) {
       $context = $scope;
+    } else {
+      $core = \AgencyBoilerplate\Handlebars\Core::getInstance();
+      // preload for forced yaml exclude and saved temp.
+      $core->getEngine()->getPartialsLoader()->load($partialName);
+      $context = $core->getDefaultPartialData($partialName);
     }
 
-//    $core = \AgencyBoilerplate\Handlebars\Core::getInstance();
-//    $fileContent = $core->getEngine()->getPartialsLoader()->load($partialName);
-//    if (preg_match("/---([.\\s\\S])*---/", $fileContent, $match)) {
-//      $context = $match;
-//    }
 
     $buffer = null;
     if ($source) {

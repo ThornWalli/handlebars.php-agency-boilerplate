@@ -6,7 +6,7 @@ namespace AgencyBoilerplate\Handlebars;
 class Core
 {
 
-  public static $PARTIALS_DEFAULT_DATA = [];
+
 
   protected static $instance = null;
 
@@ -104,9 +104,10 @@ class Core
 
   public function getDefaultPartialData($partialPath)
   {
-    if (array_key_exists($partialPath, self::$PARTIALS_DEFAULT_DATA)) {
+    if (array_key_exists($partialPath, $this->partialsDefaultData)) {
       return $this->partialsDefaultData[$partialPath];
     }
+    return [];
   }
 
   public function registerDefaultPartialData($partialPath, $data)

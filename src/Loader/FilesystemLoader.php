@@ -15,6 +15,9 @@ class FilesystemLoader extends \Handlebars\Loader\FilesystemLoader
   protected function loadFile($name)
   {
     $fileContent = parent::loadFile($name);
+    if (preg_match("/---([.\\s\\S])*---/", $fileContent, $match)) {
+      Core::getInstance()->registerDefaultPartialData($name, \Spyc::YAMLLoad($match[0]));
+    }
     // replace yaml
     $fileContent = preg_replace("/(---)[.\\s\\S]*(---)/", "", $fileContent);
     return $fileContent;
