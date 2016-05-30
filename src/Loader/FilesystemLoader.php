@@ -2,6 +2,8 @@
 
 namespace AgencyBoilerplate\Handlebars\Loader;
 
+use AgencyBoilerplate\Handlebars\Core;
+
 class FilesystemLoader extends \Handlebars\Loader\FilesystemLoader
 {
 

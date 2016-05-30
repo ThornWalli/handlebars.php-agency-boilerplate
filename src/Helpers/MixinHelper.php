@@ -11,7 +11,7 @@ class MixinHelper extends \JustBlackBird\HandlebarsHelpers\Layout\AbstractBlockH
   {
     /** @var $template \Handlebars\Template */
     $parsedArgs = $template->parseArguments($args);
-    $blockName = $context->get(array_shift($parsedArgs));
+    $partialName = $context->get(array_shift($parsedArgs));
     $parsedNamedArgs = $template->parseNamedArguments($args);
     $scope = [];
     if (count($parsedArgs) > 0) {
@@ -26,24 +26,26 @@ class MixinHelper extends \JustBlackBird\HandlebarsHelpers\Layout\AbstractBlockH
     }
 
     if (count($scope) > 0) {
-      /**
-       * @type \Handlebars\Context $context
-       */
       $context = $scope;
     }
 
+//    $core = \AgencyBoilerplate\Handlebars\Core::getInstance();
+//    $fileContent = $core->getEngine()->getPartialsLoader()->load($partialName);
+//    if (preg_match("/---([.\\s\\S])*---/", $fileContent, $match)) {
+//      $context = $match;
+//    }
 
     $buffer = null;
     if ($source) {
       $template->render($context);
       $this->level++;
-      $buffer = $template->getEngine()->render($blockName, $context);
+      $buffer = $template->getEngine()->render($partialName, $context);
       $this->level--;
       if ($this->level == 0) {
         $this->blocksStorage->clear();
       }
-    }  else {
-      $buffer = $template->getEngine()->render($blockName, $context);
+    } else {
+      $buffer = $template->getEngine()->render($partialName, $context);
     }
     return $buffer;
   }

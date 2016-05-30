@@ -6,12 +6,15 @@ namespace AgencyBoilerplate\Handlebars;
 class Core
 {
 
+  public static $PARTIALS_DEFAULT_DATA = [];
+
   protected static $instance = null;
 
   /**
    * @var \Handlebars\Handlebars
    */
   protected $engine;
+  private $partialsDefaultData = [];
 
   /**
    * @return \AgencyBoilerplate\Handlebars\Core
@@ -74,8 +77,8 @@ class Core
   public function getVarData($partialName)
   {
     $core = \AgencyBoilerplate\Handlebars\Core::getInstance();
-    $html = $core->getEngine()->getPartialsLoader()->load($partialName);
-    preg_match_all("/{{[#]?var \"([^{]*)\" \"([^{}]*)\"}}|\\\\(var \"([^()]*)\" \"([^()]*)\\\\)\"/", $html, $matches);
+    $fileContent = $core->getEngine()->getPartialsLoader()->load($partialName);
+    preg_match_all("/{{[#]?var \"([^{]*)\" \"([^{}]*)\"}}|\\\\(var \"([^()]*)\" \"([^()]*)\\\\)\"/", $fileContent, $matches);
 
     $total = array();
     $total[$partialName] = array_combine($matches[1], $matches[2]);
@@ -89,12 +92,26 @@ class Core
     return $total;
   }
 
+
+
   public function getPathsFromMixins($partialName)
   {
     $core = \AgencyBoilerplate\Handlebars\Core::getInstance();
-    $html = $core->getEngine()->getPartialsLoader()->load($partialName);
-    preg_match_all("/{{[{#]mixin \\\"(.*)\\\"[^{}]*}}/", $html, $matches);
+    $fileContent = $core->getEngine()->getPartialsLoader()->load($partialName);
+    preg_match_all("/{{[{#]mixin \\\"(.*)\\\"[^{}]*}}/", $fileContent, $matches);
     return $matches[1];
+  }
+
+  public function getDefaultPartialData($partialPath)
+  {
+    if (array_key_exists($partialPath, self::$PARTIALS_DEFAULT_DATA)) {
+      return $this->partialsDefaultData[$partialPath];
+    }
+  }
+
+  public function registerDefaultPartialData($partialPath, $data)
+  {
+    $this->partialsDefaultData[$partialPath] = $data;
   }
 
 }

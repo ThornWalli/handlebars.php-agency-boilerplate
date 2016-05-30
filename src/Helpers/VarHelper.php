@@ -13,7 +13,12 @@ class VarHelper implements \Handlebars\Helper
   public function execute(\Handlebars\Template $template, \Handlebars\Context $context, $args, $source)
   {
     $parsedArgs = $template->parseArguments($args);
+    if ($source) {
+      return $source;
+    }
     return $context->get((string)$parsedArgs[0]);
+
+
   }
 }
 

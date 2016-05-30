@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "007e8f43981d50e7f59ab41fe8bfba51",
-    "content-hash": "f5eab2f88f11e40c98c550b582e40bc6",
+    "hash": "08b6a7ba6cec996220f01d8b15989bf9",
+    "content-hash": "bba32667709933af84e35b7fbcef33b3",
     "packages": [
         {
             "name": "justblackbird/handlebars.php-helpers",
@@ -46,6 +46,56 @@
             ],
             "description": "A set of helpers for Handlebars.php template engine.",
             "time": "2016-02-20 13:42:54"
+        },
+        {
+            "name": "mustangostang/spyc",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mustangostang/spyc.git",
+                "reference": "dfd9aadc1f5224065d55b42b712c7e99a50a3f4d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mustangostang/spyc/zipball/dfd9aadc1f5224065d55b42b712c7e99a50a3f4d",
+                "reference": "dfd9aadc1f5224065d55b42b712c7e99a50a3f4d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.3.*@dev"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.5.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "Spyc.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "mustangostang",
+                    "email": "vlad.andersen@gmail.com"
+                }
+            ],
+            "description": "A simple YAML loader/dumper class for PHP",
+            "homepage": "https://github.com/mustangostang/spyc/",
+            "keywords": [
+                "spyc",
+                "yaml",
+                "yml"
+            ],
+            "time": "2016-05-14 08:33:02"
         },
         {
             "name": "xamin/handlebars.php",
