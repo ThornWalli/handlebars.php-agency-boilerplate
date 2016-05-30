@@ -34,7 +34,7 @@ function parseVarsfromTemplate($name)
 
   $paths = getPathsFromMixins(null, $html);
   if (count($paths) > 0) {
-    for ($i = 0; $i < count($paths); $i++) {∂
+    for ($i = 0; $i < count($paths); $i++) {
       $total = array_merge($total, parseVarsfromTemplate($paths[$i]));
     }
   }
