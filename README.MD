@@ -35,17 +35,51 @@ Sets prefix for template files.
 
 ## Features
 
+>yaml (in progress) https://hbs-php-agency-boilerplate.herokuapp.com/tests/yaml
+
+
 ### Helpers
 
->lookup: https://hbs-php-agency-boilerplate.herokuapp.com/tests/lookup
+#### lookup
 
->mixin: https://hbs-php-agency-boilerplate.herokuapp.com/tests/mixin
+https://hbs-php-agency-boilerplate.herokuapp.com/tests/lookup
 
->stringfy: https://hbs-php-agency-boilerplate.herokuapp.com/tests/stringify
+#### mixin
 
->with: https://hbs-php-agency-boilerplate.herokuapp.com/tests/with
+https://hbs-php-agency-boilerplate.herokuapp.com/tests/mixin
 
->yaml (in progress) https://hbs-php-agency-boilerplate.herokuapp.com/tests/yaml
+#### stringfy
+
+https://hbs-php-agency-boilerplate.herokuapp.com/tests/stringify
+
+#### with
+
+https://hbs-php-agency-boilerplate.herokuapp.com/tests/with
+
+#### var
+Return: ```*```
+
+Return property value by name.
+
+Pattern:
+
+```mustache
+{{{var name type}}}
+
+Example: {{{var "fieldName"}}}
+```
+**in progress!**
+
+##### name
+Type: ```string```
+
+Sets the Name from property.
+
+##### type
+Type: ```string```
+
+Sets the type of propety.
+
 
 ## Use
 
@@ -98,4 +132,5 @@ echo $core->getEngine()->render('index', $data);
 ## TODOS
 
 - [x] mixin helper with block and content
+- [ ] var helper for parse properties from template
 - [ ] yaml placeholder data

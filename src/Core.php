@@ -13,6 +13,9 @@ class Core
    */
   protected $engine;
 
+  /**
+   * @return \AgencyBoilerplate\Handlebars\Core
+   */
   public static function getInstance()
   {
     self::hasInstance();

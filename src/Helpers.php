@@ -16,6 +16,7 @@ class Helpers extends \Handlebars\Helpers
     $this->add('content', new \JustBlackBird\HandlebarsHelpers\Layout\OverrideHelper($storage));
     $this->add('lookup', new \AgencyBoilerplate\Handlebars\Helpers\LookupHelper());
     $this->add('stringify', new \AgencyBoilerplate\Handlebars\Helpers\StringifyHelper());
+    $this->add('var', new \AgencyBoilerplate\Handlebars\Helpers\VarHelper());
   }
 
 }

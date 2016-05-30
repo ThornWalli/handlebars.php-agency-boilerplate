@@ -1,0 +1,23 @@
+---
+key-1: "Key-1 Value"
+---
+<h1>var example</h1>
+
+{{{var "key-textfield" "textfield"}}}<br /><br />
+{{{var "key-textarea" "textarea"}}}<br /><br />
+{{{var "key-checkbox" "checkbox"}}}<br /><br />
+{{{var "key-radio" "radio"}}}<br /><br />
+{{{var "key-colorpicker" "colorpicker"}}}<br /><br />
+{{{var "key-image" "image"}}}<br /><br />
+{{{var "key-number" "number"}}}<br /><br />
+{{#var "key-dropdown" "dropdown"}}
+option-1: "Option 1."
+option-2: "Option 2."
+{{/var}}<br /><br />
+
+{{#mixin "partial"}}
+  {{#content "primary"}}
+      <legend>{{{var "legend" "textfield"}}}</legend>
+      {{{mixin "sub-partial" mixin}}}
+  {{/content}}
+{{/mixin}}
