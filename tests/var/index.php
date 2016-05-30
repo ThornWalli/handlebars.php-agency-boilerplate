@@ -30,15 +30,15 @@ echo $core->getEngine()->render('index', $data);
 
 <?php
 
-foreach ($core->getVarData('index') as $tabName => $tab) {
+foreach ($core->getVarData('index') as $partialName => $data) {
   ?>
-  <h3><?php echo $tabName; ?></h3>
+  <h3><?php echo $partialName; ?></h3>
   <pre><?php
-    echo $core->getEngine()->getPartialsLoader()->load($tabName);
+    echo $core->getEngine()->getPartialsLoader()->load($partialName);
     ?></pre>
   <h4>Properties</h4>
   <pre><?php
-    foreach ($tab as $key => $var) {
+    foreach ($data as $key => $var) {
       ?><?php echo sprintf('%s: %s', $key, $var); ?><br/><br/><?php
     }
     ?></pre><br/>
