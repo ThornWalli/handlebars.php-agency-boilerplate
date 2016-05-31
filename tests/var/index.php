@@ -23,7 +23,6 @@ $data = [
 
 echo $core->getEngine()->render('index', $data);
 
-
 ?>
 
 <h2>Partials</h2>

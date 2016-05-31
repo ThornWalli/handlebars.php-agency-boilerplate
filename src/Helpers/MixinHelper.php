@@ -30,7 +30,7 @@ class MixinHelper extends \JustBlackBird\HandlebarsHelpers\Layout\AbstractBlockH
       $core = \AgencyBoilerplate\Handlebars\Core::getInstance();
       // preload for forced yaml exclude and saved temp.
       $core->getEngine()->getPartialsLoader()->load($partialName);
-      $context = $core->getDefaultPartialData($partialName);
+      $context->push($core->getDefaultPartialData($partialName));
     }
 
 

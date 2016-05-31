@@ -17,7 +17,7 @@ option-2: "Option 2."
 
 {{#mixin "partial"}}
   {{#content "primary"}}
-      <legend>{{{var "legend" "textfield"}}}</legend>
+      <legend>{{{var "../legend" "textfield"}}}</legend>
       {{{mixin "sub-partial" mixin}}}
   {{/content}}
 {{/mixin}}
