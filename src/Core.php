@@ -7,7 +7,6 @@ class Core
 {
 
 
-
   protected static $instance = null;
 
   /**
@@ -78,20 +77,30 @@ class Core
   {
     $core = \AgencyBoilerplate\Handlebars\Core::getInstance();
     $fileContent = $core->getEngine()->getPartialsLoader()->load($partialName);
-    preg_match_all("/{{[#]?var \"([^{]*)\" \"([^{}]*)\"}}|\\\\(var \"([^()]*)\" \"([^()]*)\\\\)\"/", $fileContent, $matches);
+    if (preg_match_all("/{{[#]?var \"([^{\"]*)\" \"([^{}\"]*)\"[ ]?([^{}]*)?}}|\\(var \"([^()\"]*)\" \"([^()\"]*)\"[ ]?([^()]*)?}\\)/", $fileContent, $matches)) {
 
-    $total = array();
-    $total[$partialName] = array_combine($matches[1], $matches[2]);
+      $properties = [
+        $partialName=>[]
+      ];
 
-    $paths = $this->getPathsFromMixins($partialName);
-    if (count($paths) > 0) {
-      for ($i = 0; $i < count($paths); $i++) {
-        $total = array_merge($total, $this->getVarData($paths[$i]));
+      for ($i = 0; $i < count($matches[1]); $i++) {
+        $properties[$partialName][] = [
+          'name' => $matches[1][$i],
+          'type' => $matches[2][$i],
+          'default' => $matches[3][$i]
+        ];
       }
-    }
-    return $total;
-  }
 
+      $paths = $this->getPathsFromMixins($partialName);
+      if (count($paths) > 0) {
+        for ($i = 0; $i < count($paths); $i++) {
+          $properties = array_merge($properties, $this->getVarData($paths[$i]));
+        }
+      }
+      return $properties;
+    }
+    return null;
+  }
 
 
   public function getPathsFromMixins($partialName)

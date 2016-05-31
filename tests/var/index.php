@@ -36,11 +36,27 @@ foreach ($core->getVarData('index') as $partialName => $data) {
     echo $core->getEngine()->getPartialsLoader()->load($partialName);
     ?></pre>
   <h4>Properties</h4>
-  <pre><?php
-    foreach ($data as $key => $var) {
-      ?><?php echo sprintf('%s: %s', $key, $var); ?><br/><br/><?php
-    }
-    ?></pre><br/>
+  <pre>
+<?php print_r($data); ?>
+    <table>
+      <tbody>
+      <?php
+      foreach ($data as $key => $var) {
+      ?>
+
+      <tr>
+        <td><?php echo $key; ?></td>
+        <td><?php echo $var; ?></td>
+      </tr>
+
+        <?php echo sprintf('%s: %s', $key, $var); ?><br/><br/><?php
+      }
+      ?>
+
+      </tbody>
+    </table>
+
+      </pre><br/>
   <hr/><br/>
   <?php
 }

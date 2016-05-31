@@ -65,7 +65,7 @@ Return property value by name.
 Pattern:
 
 ```mustache
-{{{var name type}}}
+{{{var name type default}}}
 
 Example: {{{var "fieldName"}}}
 ```
@@ -74,12 +74,17 @@ Example: {{{var "fieldName"}}}
 ##### name
 Type: ```string```
 
-Sets the Name from property.
+Sets property name.
 
 ##### type
 Type: ```string```
 
-Sets the type of propety.
+Sets property type.
+
+##### default
+Type: ```mixed```
+
+Sets default property value.
 
 
 ## Use
