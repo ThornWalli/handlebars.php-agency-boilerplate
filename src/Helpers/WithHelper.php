@@ -4,7 +4,6 @@ namespace AgencyBoilerplate\Handlebars\Helpers;
 class WithHelper implements \Handlebars\Helper
 {
   /**
-   * Override "with" helper for remove buffer output, when arguments empty.
    * @param \Handlebars\Template $template
    * @param \Handlebars\Context $context
    * @param array $args

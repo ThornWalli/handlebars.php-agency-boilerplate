@@ -2,63 +2,74 @@
 
 Handlebar.php Helper for [agency-boilerplate](https://github.com/StephanGerbeth/agency-boilerplate).
 
-`\AgencyBoilerplate\Handlebars\Core::init($options)`
+>Use `if_var` for conditions, `if` helper is not compactible with `var` helper.
+```mustache
+{{if_var conditional}}
+  true
+{{else}}
+  false
+{{/if_var}}
 ```
+
+## Options
+
+`\AgencyBoilerplate\Handlebars\Core::init($options)`
+
+```javascript
 [
   'partialDir' => '.',
   'extension' => '.hbs',
   'prefix' => ''
 ]
 ```
-## Options
+
 ### partialDir
 
 Type: `mixed|string`
 
 Sets partial dirs for loading partial via mixin helper.
 
-
 ### extension
 
-Type: `string`<br />
+Type: `string`<br>
 Default: `.handlebars`
 
 ### prefix
 
-Type: `string`<br />
+Type: `string`<br>
 Default: `empty`
 
 Sets prefix for template files.
 
-##### Example:
+#### Example:
+
 > prefix: "_" -> filename: "_partial.hbs"
 
 ## Features
 
->yaml (in progress) https://hbs-php-agency-boilerplate.herokuapp.com/tests/yaml
-
+> yaml (in progress) <https://hbs-php-agency-boilerplate.herokuapp.com/tests/yaml>
 
 ### Helpers
 
 #### lookup
 
-https://hbs-php-agency-boilerplate.herokuapp.com/tests/lookup
+<https://hbs-php-agency-boilerplate.herokuapp.com/tests/lookup>
 
 #### mixin
 
-https://hbs-php-agency-boilerplate.herokuapp.com/tests/mixin
+<https://hbs-php-agency-boilerplate.herokuapp.com/tests/mixin>
 
 #### stringfy
 
-https://hbs-php-agency-boilerplate.herokuapp.com/tests/stringify
+<https://hbs-php-agency-boilerplate.herokuapp.com/tests/stringify>
 
 #### with
 
-https://hbs-php-agency-boilerplate.herokuapp.com/tests/with
+<https://hbs-php-agency-boilerplate.herokuapp.com/tests/with>
 
 #### var
 
-https://hbs-php-agency-boilerplate.herokuapp.com/tests/var
+<https://hbs-php-agency-boilerplate.herokuapp.com/tests/var>
 
 Return property value by name.
 
@@ -67,34 +78,34 @@ Pattern:
 ```mustache
 {{{var name type default}}}
 
-Example: {{{var "fieldName"}}}
+Example: {{{var "fieldName" "fieldType" true}}}
 ```
+
 **in progress!**
 
 ##### name
-Type: ```string```
+
+Type: `string`
 
 Sets property name.
 
 ##### type
-Type: ```string```
+
+Type: `string`
 
 Sets property type.
 
 ##### default
-Type: ```mixed```
+
+Type: `mixed`
 
 Sets default property value.
-
 
 ## Use
 
 ### Handlebars index.hbs
+
 ```mustache
----
-object: {}
-array: []
----
 <h1>stringify example</h1>
 
 <h2>scope: this</h2>
@@ -106,6 +117,7 @@ array: []
 <h2>scope: array</h2>
 <p>{{{stringify array}}}</p>
 ```
+
 ### PHP index.php
 
 ```php
@@ -138,5 +150,5 @@ echo $core->getEngine()->render('index', $data);
 ## TODOS
 
 - [x] mixin helper with block and content
-- [ ] var helper for parse properties from template
-- [ ] yaml placeholder data
+- [x] implement var helper, for define properties
+- [x] yaml placeholder data

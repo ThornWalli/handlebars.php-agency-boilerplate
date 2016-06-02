@@ -3,21 +3,26 @@ key-1: "Key-1 Value"
 ---
 <h1>var example</h1>
 
-{{{var "key-textfield" "textfield" "Default Value"}}}<br /><br />
-{{{var "key-textarea" "textarea" "Default Value"}}}<br /><br />
-{{{var "key-checkbox" "checkbox" true}}}<br /><br />
-{{{var "key-radio" "radio"}}}<br /><br />
-{{{var "key-colorpicker" "colorpicker"}}}<br /><br />
-{{{var "key-image" "image"}}}<br /><br />
-{{{var "key-number" "number"}}}<br /><br />
-{{#var "key-dropdown" "dropdown"}}
+{{{var key-textfield "textfield" "Default Value"}}}<br /><br />
+{{{var key-textarea "textarea" "Default Value"}}}<br /><br />
+{{{var key-checkbox "checkbox" true}}}<br /><br />
+{{{var key-radio "radio"}}}<br /><br />
+{{{var key-colorpicker "colorpicker"}}}<br /><br />
+{{{var key-image "image"}}}<br /><br />
+{{{var key-number "number"}}}<br /><br />
+{{#var key-dropdown "dropdown"}}
 option-1: "Option 1."
 option-2: "Option 2."
 {{/var}}<br /><br />
 
+{{!--{{#if_var (var condition "checkbox" false)}}
+
+  {{!--test
+{{!--{{/if_var}}--}}
+
 {{#mixin "partial"}}
   {{#content "primary"}}
-      <legend>{{{var "../legend" "textfield"}}}</legend>
-      {{{mixin "sub-partial" mixin}}}
+      <legend>{{{var ../legend "textfield"}}}</legend>
+      {{{mixin "sub-partial"}}}
   {{/content}}
 {{/mixin}}

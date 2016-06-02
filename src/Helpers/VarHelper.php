@@ -16,8 +16,7 @@ class VarHelper implements \Handlebars\Helper
     if ($source) {
       return $source;
     }
-    $defaultValue = (string)$parsedArgs[0];
-    return $context->get((string)$parsedArgs[0]);
+    return $parsedArgs[1];
 
 
   }

@@ -37,19 +37,21 @@ foreach ($core->getVarData('index') as $partialName => $data) {
     ?></pre>
   <h4>Properties</h4>
   <pre>
-<?php print_r($data); ?>
+
     <table>
       <tbody>
+
       <?php
-      foreach ($data as $key => $var) {
+      foreach ($data as $var) {
       ?>
 
       <tr>
-        <td><?php echo $key; ?></td>
-        <td><?php echo $var; ?></td>
+        <td><?php echo $var['name']; ?></td>
+        <td><?php echo $var['type']; ?></td>
+        <td><?php echo $var['default']; ?></td>
       </tr>
 
-        <?php echo sprintf('%s: %s', $key, $var); ?><br/><br/><?php
+      <?php
       }
       ?>
 
@@ -62,4 +64,3 @@ foreach ($core->getVarData('index') as $partialName => $data) {
 }
 
 ?>
-

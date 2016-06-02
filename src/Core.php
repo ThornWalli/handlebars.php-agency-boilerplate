@@ -77,10 +77,10 @@ class Core
   {
     $core = \AgencyBoilerplate\Handlebars\Core::getInstance();
     $fileContent = $core->getEngine()->getPartialsLoader()->load($partialName);
-    if (preg_match_all("/{{[#]?var \"([^{\"]*)\" \"([^{}\"]*)\"[ ]?([^{}]*)?}}|\\(var \"([^()\"]*)\" \"([^()\"]*)\"[ ]?([^()]*)?}\\)/", $fileContent, $matches)) {
+    if (preg_match_all("/{{[#]?var ([^{\"]*) \"([^{}\"]*)\"[ ]?([^{}]*)?}}|\\(var ([^()\"]*) \"([^()\"]*)\"[ ]?([^()]*)?}\\)/", $fileContent, $matches)) {
 
       $properties = [
-        $partialName=>[]
+        $partialName => []
       ];
 
       for ($i = 0; $i < count($matches[1]); $i++) {
@@ -94,7 +94,9 @@ class Core
       $paths = $this->getPathsFromMixins($partialName);
       if (count($paths) > 0) {
         for ($i = 0; $i < count($paths); $i++) {
-          $properties = array_merge($properties, $this->getVarData($paths[$i]));
+          if (is_array($this->getVarData($paths[$i]))) {
+            $properties = array_merge($properties, is_array($this->getVarData($paths[$i])));
+          }
         }
       }
       return $properties;
