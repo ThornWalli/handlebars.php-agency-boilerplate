@@ -17,6 +17,7 @@ class Helpers extends \Handlebars\Helpers
     $this->add('lookup', new \AgencyBoilerplate\Handlebars\Helpers\LookupHelper());
     $this->add('stringify', new \AgencyBoilerplate\Handlebars\Helpers\StringifyHelper());
     $this->add('var', new \AgencyBoilerplate\Handlebars\Helpers\VarHelper());
+    $this->add('var_str', new \AgencyBoilerplate\Handlebars\Helpers\VarStrHelper());
     $this->add('if_var', new \Handlebars\Helper\IfHelper());
   }
 

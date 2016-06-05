@@ -7,6 +7,7 @@ $core = \AgencyBoilerplate\Handlebars\Core::init([
 
 $data = [
 
+  'condition' => true,
   'key-textfield' => 'textfield value',
   'key-textarea' => 'textarea value',
   'key-checkbox' => 'checkbox value',
@@ -42,16 +43,24 @@ foreach ($core->getVarData('index') as $partialName => $data) {
       <tbody>
 
       <?php
-      foreach ($data as $var) {
+      foreach ($data as $partialName_ => $data_) {
+        ?>
+
+        <tr>
+          <th colspan="2"><?php echo $partialName_; ?></th>
+        </tr>
+
+        <?php
+      foreach ($data_ as $var) {
       ?>
 
       <tr>
         <td><?php echo $var['name']; ?></td>
         <td><?php echo $var['type']; ?></td>
-        <td><?php echo $var['default']; ?></td>
       </tr>
 
       <?php
+      }
       }
       ?>
 

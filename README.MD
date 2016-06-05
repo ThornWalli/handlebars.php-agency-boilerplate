@@ -73,12 +73,12 @@ Sets prefix for template files.
 
 Return property value by name.
 
-Pattern:
+**Pattern**:
 
 ```mustache
-{{{var name type default}}}
+{{{var name="PropertyName" type="PropertyType"}}}
 
-Example: {{{var "fieldName" "fieldType" true}}}
+Example: {{{var name="fieldName" type="fieldType"}}}
 ```
 
 **in progress!**

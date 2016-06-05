@@ -6,13 +6,16 @@ namespace AgencyBoilerplate\Handlebars;
 class Core
 {
 
-
   protected static $instance = null;
+  protected static $options = null;
 
   /**
    * @var \Handlebars\Handlebars
    */
   protected $engine;
+  protected $globalVarTemp;
+  protected $globalMixinPath;
+  protected $globalMixinDeactivated;
   private $partialsDefaultData = [];
 
   /**
@@ -24,9 +27,15 @@ class Core
     return self::$instance;
   }
 
-  public function __construct($engine)
+  public function __construct($engine, $globalVarTemp,$globalMixinPath,$globalMixinDeactivated)
   {
     $this->engine = $engine;
+    $this->globalVarTemp = $globalVarTemp;
+    $GLOBALS[$globalVarTemp] = null;
+    $this->globalMixinDeactivated = $globalMixinDeactivated;
+    $GLOBALS[$globalMixinDeactivated] = null;
+    $this->globalMixinPath = $globalMixinPath;
+    $GLOBALS[$globalMixinPath] = [];
   }
 
   public static function init($options)
@@ -41,17 +50,28 @@ class Core
       if (!array_key_exists('prefix', $options)) {
         $options['prefix'] = '';
       }
+      if (!array_key_exists('globalVarTemp', $options)) {
+        $options['globalVarTemp'] = 'AGENCY_BOILERPLATE_HBS_VAR_TEMP';
+      }
+      if (!array_key_exists('globalMixinPath', $options)) {
+        $options['globalMixinPath'] = 'AGENCY_BOILERPLATE_HBS_MIXIN_PATH';
+      }
+      if (!array_key_exists('globalMixinDeactivated', $options)) {
+        $options['globalMixinDeactivated'] = 'AGENCY_BOILERPLATE_HBS_MIXIN_DEACTIVATED';
+      }
     } else {
       throw new \InvalidArgumentException(
         'empty options'
       );
     }
+
+    self::$options = $options;
     $baseDirs = $options['partialDir'];
     self::$instance = new self(new \Handlebars\Handlebars(array(
       'helpers' => new Helpers(),
       'loader' => new \AgencyBoilerplate\Handlebars\Loader\FilesystemLoader($baseDirs, $options),
       'partials_loader' => new \AgencyBoilerplate\Handlebars\Loader\FilesystemLoader($baseDirs, $options)
-    )));
+    )), $options['globalVarTemp'],$options['globalMixinPath'],$options['globalMixinDeactivated']);
     return self::$instance;
   }
 
@@ -73,35 +93,69 @@ class Core
     return $this->engine;
   }
 
-  public function getVarData($partialName)
+  public function getGlobalVarTemp()
+  {
+    return $this->globalVarTemp;
+  }
+
+  public function getGlobalMixinPath()
+  {
+    return $this->globalMixinPath;
+  }
+
+  public function getGlobalMixinDeactivated()
+  {
+    return $this->globalMixinDeactivated;
+  }
+
+  public function getVarData($partialName, $properties = null)
   {
     $core = \AgencyBoilerplate\Handlebars\Core::getInstance();
     $fileContent = $core->getEngine()->getPartialsLoader()->load($partialName);
-    if (preg_match_all("/{{[#]?var ([^{\"]*) \"([^{}\"]*)\"[ ]?([^{}]*)?}}|\\(var ([^()\"]*) \"([^()\"]*)\"[ ]?([^()]*)?}\\)/", $fileContent, $matches)) {
 
-      $properties = [
-        $partialName => []
-      ];
 
-      for ($i = 0; $i < count($matches[1]); $i++) {
-        $properties[$partialName][] = [
-          'name' => $matches[1][$i],
-          'type' => $matches[2][$i],
-          'default' => $matches[3][$i]
-        ];
-      }
+    $GLOBALS[\AgencyBoilerplate\Handlebars\Core::getInstance()->getGlobalVarTemp()] = [];
+    $GLOBALS[\AgencyBoilerplate\Handlebars\Core::getInstance()->getGlobalMixinDeactivated()]= true;
+    $core->getEngine()->render($partialName, $core::getDefaultPartialData($partialName));
+    $GLOBALS[\AgencyBoilerplate\Handlebars\Core::getInstance()->getGlobalMixinDeactivated()]= false;
 
-      $paths = $this->getPathsFromMixins($partialName);
-      if (count($paths) > 0) {
-        for ($i = 0; $i < count($paths); $i++) {
-          if (is_array($this->getVarData($paths[$i]))) {
-            $properties = array_merge($properties, is_array($this->getVarData($paths[$i])));
-          }
-        }
-      }
-      return $properties;
-    }
-    return null;
+//    if (!$properties) {
+//      $properties = [
+//        'default' => $GLOBALS[$core->getGlobalVarTemp()]
+//      ];
+//    } else {
+    $key = explode('/',$partialName);
+    $key = $key[count($key)-1];
+      $properties[$key] = $GLOBALS[$core->getGlobalVarTemp()];
+//    }
+//      for ($i = 0; $i < count($matches[1]); $i++) {
+
+//        if (empty($matches[1][$i])) {
+//          $args = $matches[2][$i];
+//        } else {
+//          $args = $matches[1][$i];
+//        }
+//        $args = new \Handlebars\Arguments($args);
+//        $properties[$partialName][$i] = $args;
+//      }
+
+//    $paths = $this->getPathsFromMixins($partialName);
+//    if (count($paths) > 0) {
+//      for ($i = 0; $i < count($paths); $i++) {
+//        if (is_array($this->getVarData($paths[$i]))) {
+//          $properties = $this->getVarData($paths[$i],$properties);
+//        }
+//      }
+//
+//    }
+//echo '<pre>';
+//
+//    print_r($properties);
+//    echo '</pre>';
+//    exit();
+    return $properties;
+
+
   }
 
 
@@ -109,7 +163,7 @@ class Core
   {
     $core = \AgencyBoilerplate\Handlebars\Core::getInstance();
     $fileContent = $core->getEngine()->getPartialsLoader()->load($partialName);
-    preg_match_all("/{{[{#]mixin \\\"(.*)\\\"[^{}]*}}/", $fileContent, $matches);
+    preg_match_all("/{{[{#]mixin \\\"([^\"]*)\\\"[^{}]*}}/", $fileContent, $matches);
     return $matches[1];
   }
 

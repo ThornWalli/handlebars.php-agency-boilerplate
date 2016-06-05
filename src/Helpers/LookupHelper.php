@@ -8,9 +8,11 @@ class LookupHelper implements \Handlebars\Helper
     $parsedArgs = $template->parseArguments($args);
     $data = $context->get($parsedArgs[0]);
     if ($data) {
-      return array_key_exists($parsedArgs[1]->getString(), $data);
+      $value = $context->get($parsedArgs[1]);
+      if ($value && array_key_exists($value, $data)) {
+        return $data[$value];
+      }
     }
-    return false;
   }
 }
 
