@@ -39,11 +39,13 @@ class MixinHelper extends \JustBlackBird\HandlebarsHelpers\Layout\AbstractBlockH
       $context->push($scope);
     }
 
+    $name = explode('/', $partialName);
+    $name = end($name);
+
+    array_push($GLOBALS[\AgencyBoilerplate\Handlebars\Core::getInstance()->getGlobalMixinPath()], $name);
+
     $buffer = null;
     if ($source) {
-      $name = explode('/', $partialName);
-      $name = end($name);
-      array_push($GLOBALS[\AgencyBoilerplate\Handlebars\Core::getInstance()->getGlobalMixinPath()], $name);
 
       $template->render($context);
       $this->level++;
@@ -52,11 +54,11 @@ class MixinHelper extends \JustBlackBird\HandlebarsHelpers\Layout\AbstractBlockH
       if ($this->level == 0) {
         $this->blocksStorage->clear();
       }
-      array_pop($GLOBALS[\AgencyBoilerplate\Handlebars\Core::getInstance()->getGlobalMixinPath()]);
     } else {
       $buffer = $template->getEngine()->render($partialName, $context);
     }
     $context->pop();
+    array_pop($GLOBALS[\AgencyBoilerplate\Handlebars\Core::getInstance()->getGlobalMixinPath()]);
 
     return $buffer;
   }

@@ -1,21 +1,28 @@
 <?php
 namespace AgencyBoilerplate\Handlebars\Helpers;
 
+use AgencyBoilerplate\Handlebars\Core;
+use CoMa\Helper\Base;
+use Handlebars\Context;
+use Handlebars\StringWrapper;
+use Handlebars\Template;
+
 class VarHelper extends VarStrHelper
 {
+
   private static function setVar(&$data, $path, $value)
   {
-if (!$data) {
-  $data = [];
-}
+    if (!$data) {
+      $data = [];
+    }
     $path = array_merge([], $path);
-
     $name = array_shift($path);
+
     if (!array_key_exists($name, $data) || !is_array($data[$name])) {
       $data[$name] = [];
     }
     if (count($path) > 0) {
-      $data[$name] = self::setVar($data[$name], $path, $value);
+      self::setVar($data[$name], $path, $value);
     } else {
       if (!array_key_exists($name, $data) || !is_array($data[$name])) {
         $data[$name] = [];
@@ -28,37 +35,33 @@ if (!$data) {
   }
 
   /**
-   * @param \Handlebars\Template $template
-   * @param \Handlebars\Context $context
+   * @param Template $template
+   * @param Context $context
    * @param array $args
    * @param string $source
    * @return mixed
    */
-  public function execute(\Handlebars\Template $template, \Handlebars\Context $context, $args, $source)
+  public function execute(Template $template, Context $context, $args, $source)
   {
 
     $parsedNamedArgs = $template->parseNamedArguments($args);
-//    echo $GLOBALS['test'] . ' - ' . $parsedNamedArgs['name'];
-//    self::setVar($GLOBALS['test'],$GLOBALS[\AgencyBoilerplate\Handlebars\Core::getInstance()->getGlobalVarTemp()])
 
-    if (array_key_exists(\AgencyBoilerplate\Handlebars\Core::getInstance()->getGlobalMixinPath(), $GLOBALS) && $GLOBALS[\AgencyBoilerplate\Handlebars\Core::getInstance()->getGlobalMixinPath()]) {
-
-//      echo '[' . implode(' / ', $GLOBALS[\AgencyBoilerplate\Handlebars\Core::getInstance()->getGlobalMixinPath()]) . ']<br><br>';
-
-      self::setVar($GLOBALS[\AgencyBoilerplate\Handlebars\Core::getInstance()->getGlobalVarTemp()], $GLOBALS[\AgencyBoilerplate\Handlebars\Core::getInstance()->getGlobalMixinPath()], $parsedNamedArgs);
-//      echo '<pre>';
-//      print_r($GLOBALS[\AgencyBoilerplate\Handlebars\Core::getInstance()->getGlobalVarTemp()]);
-//      echo '</pre>';
-//      $GLOBALS[\AgencyBoilerplate\Handlebars\Core::getInstance()->getGlobalVarTemp()]
-
-
-    } else {
-      self::setVar($GLOBALS[\AgencyBoilerplate\Handlebars\Core::getInstance()->getGlobalVarTemp()], ['content'], $parsedNamedArgs);
+    if (!array_key_exists('group', $parsedNamedArgs)) {
+      $parsedNamedArgs['group'] = new StringWrapper(Base::TAB_CONTENT);
     }
-
-
+    if ($parsedNamedArgs['group']->getString()) {
+      self::setVar($GLOBALS[Core::getInstance()->getGlobalVarTemp()], [$parsedNamedArgs['group']->getString()], $parsedNamedArgs);
+    } else {
+      self::setVar($GLOBALS[Core::getInstance()->getGlobalVarTemp()], [Base::TAB_CONTENT], $parsedNamedArgs);
+    }
+    if (array_key_exists('title', $parsedNamedArgs)) {
+      $parsedNamedArgs['title'] = $parsedNamedArgs['name'];
+    }
+    if (!array_key_exists('desc', $parsedNamedArgs)) {
+      $parsedNamedArgs['desc'] = null;
+    }
     if (array_key_exists('mixin', $parsedNamedArgs)) {
-      return $parsedNamedArgs['name'];
+      return $parsedNamedArgs['value'];
     } else {
       return $context->get($parsedNamedArgs['value']);
     }
