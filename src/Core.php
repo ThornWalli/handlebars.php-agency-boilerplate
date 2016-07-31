@@ -152,7 +152,7 @@ class Core
       if (array_key_exists($partialPath, $this->partialsDefaultData)) {
          return $this->partialsDefaultData[$partialPath];
       } else {
-         $this->getEngine()->getPartialsLoader()->load('index');
+         $this->getEngine()->getPartialsLoader()->load($partialPath);
          return $this->partialsDefaultData[$partialPath];
       }
    }
