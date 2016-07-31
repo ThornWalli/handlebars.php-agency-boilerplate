@@ -2,14 +2,15 @@
 
 Handlebar.php Helper for [agency-boilerplate](https://github.com/StephanGerbeth/agency-boilerplate).
 
->Use `if_var` for conditions, `if` helper is not compactible with `var` helper.
-```mustache
-{{if_var conditional}}
-  true
-{{else}}
-  false
-{{/if_var}}
-```
+> Use `if_var` for conditions, `if` helper is not compactible with `var` helper.
+
+> ```mustache
+> {{if_var conditional}}
+>   true
+> {{else}}
+>   false
+> {{/if_var}}
+> ```
 
 ## Options
 
@@ -67,21 +68,26 @@ Sets prefix for template files.
 
 <https://hbs-php-agency-boilerplate.herokuapp.com/tests/with>
 
-#### var
+#### def
 
-<https://hbs-php-agency-boilerplate.herokuapp.com/tests/var>
-
-Return property value by name.
+<https://hbs-php-agency-boilerplate.herokuapp.com/tests/def>
 
 **Pattern**:
 
 ```mustache
-{{{var name="PropertyName" type="PropertyType"}}}
-
-Example: {{{var name="fieldName" type="fieldType"}}}
+{{{def name="PropertyName" type="PropertyType"}}}
 ```
 
-**in progress!**
+Properties:
+
+Property      | Description
+------------- | -------------
+`group`       | Group
+`name`        | Name
+`type`        | Type
+`title`       | Title
+`description` | Description
+`default`     | Default Value
 
 ##### name
 
